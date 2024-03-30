@@ -9,7 +9,7 @@ public interface IBootcampServicePort {
     void saveBootcamp(Bootcamp bootcamp);
     Bootcamp getBootcamp(String name);
     List<Bootcamp> getAllBootcamps(Integer page, Integer size);
-    List<Bootcamp> getAllBootcampsBySupplier(String supplier, Integer page, Integer size);
+    List<Bootcamp> getAllBootcampsByName(String name, Integer page, Integer size);
     Bootcamp updateBootcamp(Bootcamp bootcamp);
     void deleteBootcamp(Long id);
 }

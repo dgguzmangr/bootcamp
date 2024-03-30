@@ -4,7 +4,9 @@ import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.Elem
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.ProductAlreadyExistsException;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.SupplierAlreadyExistsException;
+import  com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.SupplierNotFoundException;
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.TechnologyNotFoundException;
 import com.pragma.arquetipobootcamp2024.configuration.Constants;
 import com.pragma.arquetipobootcamp2024.domain.exception.EmptyFieldException;
 import com.pragma.arquetipobootcamp2024.domain.exception.NegativeNotAllowedException;
@@ -47,6 +49,11 @@ public class ControllerAdvisor {
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.PRODUCT_ALREADY_EXISTS_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
+    @ExceptionHandler(TechnologyAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleTechnologyAlreadyExistsException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
     @ExceptionHandler(ElementNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleElementNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(
@@ -56,5 +63,10 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleSupplierNotFoundException() {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
                 Constants.SUPPLIER_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(TechnologyNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleTechnologyNotFoundException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.TECHNOLOGY_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 }
