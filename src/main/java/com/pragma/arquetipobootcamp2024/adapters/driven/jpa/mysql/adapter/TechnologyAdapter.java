@@ -12,6 +12,8 @@ import com.pragma.arquetipobootcamp2024.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +39,11 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     @Override
     public Technology getTechnology(String name) {
         Pageable pagination = PageRequest.of(0, 10);
-        TechnologyEntity technology = technologyRepository.findByNameContaining(name, pagination).orElseThrow(ElementNotFoundException::new);
+        Page<TechnologyEntity> page = technologyRepository.findByNameContaining(name, pagination);
+        if (page.isEmpty()) {
+            throw new ElementNotFoundException();
+        }
+        TechnologyEntity technology = page.getContent().get(0);
         return technologyEntityMapper.toModel(technology);
     }
 
@@ -54,12 +60,12 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     @Override
     public List<Technology> getAllTechnologiesByName(String name, Integer page, Integer size) {
         Pageable pagination = PageRequest.of(page, size);
-        Optional<TechnologyEntity> optionalTechnology = technologyRepository.findByNameContaining(name, pagination);
-        if (optionalTechnology.isEmpty()) {
+        Page<TechnologyEntity> pageResult = technologyRepository.findByNameContaining(name, pagination);
+        List<TechnologyEntity> content = pageResult.getContent();
+        if (content.isEmpty()) {
             throw new NoDataFoundException();
         }
-        TechnologyEntity technology = optionalTechnology.get();
-        return List.of(technologyEntityMapper.toModel(technology));
+        return technologyEntityMapper.toModelList(content);
     }
 
     /*
