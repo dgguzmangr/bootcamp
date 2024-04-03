@@ -5,8 +5,10 @@ import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.NoDataFoundExcept
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.ProductAlreadyExistsException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.SupplierAlreadyExistsException;
 import  com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
+import  com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechCapAlreadyExistsException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.SupplierNotFoundException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechnologyNotFoundException;
+import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechCapNotFoundException;
 import com.pragma.bootcamp.configuration.Constants;
 import com.pragma.bootcamp.domain.exception.EmptyFieldException;
 import com.pragma.bootcamp.domain.exception.NegativeNotAllowedException;
@@ -54,6 +56,11 @@ public class ControllerAdvisor {
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
+    @ExceptionHandler(TechCapAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleTechCapAlreadyExistsException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECH_CAP_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
     @ExceptionHandler(ElementNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleElementNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(
@@ -68,5 +75,10 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleTechnologyNotFoundException() {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
                 Constants.TECHNOLOGY_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(TechCapNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleTechCapNotFoundException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.TECH_CAP_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 }

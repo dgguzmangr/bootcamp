@@ -1,20 +1,26 @@
 package com.pragma.bootcamp.configuration;
 
+import com.pragma.bootcamp.adapters.driven.jpa.mysql.adapter.TechCapAdapter;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.adapter.TechnologyAdapter;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.adapter.ProductAdapter;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.adapter.SupplierAdapter;
+import com.pragma.bootcamp.adapters.driven.jpa.mysql.mapper.ITechCapEntityMapper;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.mapper.IProductEntityMapper;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.mapper.ISupplierEntityMapper;
+import com.pragma.bootcamp.adapters.driven.jpa.mysql.repository.ITechCapRepository;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.repository.IProductRepository;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.repository.ISupplierRepository;
+import com.pragma.bootcamp.domain.api.ITechCapServicePort;
 import com.pragma.bootcamp.domain.api.ITechnologyServicePort;
 import com.pragma.bootcamp.domain.api.IProductServicePort;
 import com.pragma.bootcamp.domain.api.ISupplierServicePort;
+import com.pragma.bootcamp.domain.api.usecase.TechCapUseCase;
 import com.pragma.bootcamp.domain.api.usecase.TechnologyUseCase;
 import com.pragma.bootcamp.domain.api.usecase.ProductUseCase;
 import com.pragma.bootcamp.domain.api.usecase.SupplierUseCase;
+import com.pragma.bootcamp.domain.spi.ITechCapPersistencePort;
 import com.pragma.bootcamp.domain.spi.ITechnologyPersistencePort;
 import com.pragma.bootcamp.domain.spi.IProductPersistencePort;
 import com.pragma.bootcamp.domain.spi.ISupplierPersistencePort;
@@ -31,6 +37,8 @@ public class BeanConfiguration {
     private final ISupplierEntityMapper supplierEntityMapper;
     private final ITechnologyRepository technologyRepository;
     private final ITechnologyEntityMapper technologyEntityMapper;
+    private final ITechCapRepository techCapRepository;
+    private final ITechCapEntityMapper techCapEntityMapper;
 
     @Bean
     public IProductPersistencePort productPersistencePort() {
@@ -56,4 +64,11 @@ public class BeanConfiguration {
     };
     @Bean
     public ITechnologyServicePort technologyServicePort() { return new TechnologyUseCase(technologyPersistencePort()); }
+
+    @Bean
+    ITechCapPersistencePort techCapPersistencePort() {
+        return  new TechCapAdapter(techCapRepository, techCapEntityMapper);
+    };
+    @Bean
+    public ITechCapServicePort techCapServicePort() { return new TechCapUseCase(techCapPersistencePort()); }
 }
