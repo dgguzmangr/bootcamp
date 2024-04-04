@@ -1,55 +1,44 @@
-/*
-package com.pragma.arquetipobootcamp2024.domain.api.usecase;
+package com.pragma.bootcamp.domain.api.usecase;
 
-import com.pragma.arquetipobootcamp2024.domain.api.IBootcampServicePort;
-import com.pragma.arquetipobootcamp2024.domain.model.Bootcamp;
-import com.pragma.arquetipobootcamp2024.domain.spi.IBootcampPersistencePort;
-
-import com.pragma.arquetipobootcamp2024.domain.model.Product;
-import com.pragma.arquetipobootcamp2024.domain.spi.IProductPersistencePort;
+import com.pragma.bootcamp.domain.api.IBootcampServicePort;
+import com.pragma.bootcamp.domain.model.Bootcamp;
+import com.pragma.bootcamp.domain.spi.IBootcampPersistencePort;
 
 import java.util.List;
 
-public class BootcampUseCase implements IBootcampServicePort {
-    private IBootcampServicePort bootcampPersistencePort;
+public class BootcampUseCase  implements IBootcampServicePort {
+    private IBootcampPersistencePort bootcampPersistencePort;
 
     public BootcampUseCase(IBootcampPersistencePort bootcampPersistencePort) {
         this.bootcampPersistencePort = bootcampPersistencePort;
     }
-
     @Override
-    public void saveProduct(Product product) {
-        productPersistencePort.saveProduct(product);
+    public void saveBootcamp(Bootcamp bootcamp) {
+        bootcampPersistencePort.saveBootcamp(bootcamp);
     }
 
     @Override
-    public Product getProduct(String name) {
-        return productPersistencePort.getProduct(name);
+    public Bootcamp getBootcamp(String name) {
+        return bootcampPersistencePort.getBootcamp(name);
     }
 
     @Override
-    public List<Product> getAllProducts(Integer page, Integer size) {
-        return productPersistencePort.getAllProducts(page, size);
+    public List<Bootcamp> getAllBootcamps(Integer page, Integer size) {
+        return bootcampPersistencePort.getAllBootcamps(page, size);
     }
 
     @Override
-    public List<Product> getAllProductsBySupplier(String supplier, Integer page, Integer size) {
-        return productPersistencePort.getAllProductsBySupplier(supplier, page, size);
+    public List<Bootcamp> getAllBootcampsByName(String name, Integer page, Integer size) {
+        return bootcampPersistencePort.getAllBootcampsByName(name, page, size);
     }
 
     @Override
-    public List<Product> getAllSoldOutProducts(Integer page, Integer size) {
-        return productPersistencePort.getAllSoldOutProducts(page, size);
+    public Bootcamp updateBootcamp(Bootcamp bootcamp) {
+        return bootcampPersistencePort.updateBootcamp(bootcamp);
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        return productPersistencePort.updateProduct(product);
-    }
-
-    @Override
-    public void deleteProduct(Long id) {
-        productPersistencePort.deleteProduct(id);
+    public void deleteBootcamp(Long id) {
+        bootcampPersistencePort.deleteBootcamp(id);
     }
 }
-*/

@@ -6,9 +6,11 @@ import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.ProductAlreadyExi
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.SupplierAlreadyExistsException;
 import  com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
 import  com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechCapAlreadyExistsException;
+import  com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.BootcampAlreadyExistsException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.SupplierNotFoundException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechnologyNotFoundException;
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechCapNotFoundException;
+import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.BootcampNotFoundException;
 import com.pragma.bootcamp.configuration.Constants;
 import com.pragma.bootcamp.domain.exception.EmptyFieldException;
 import com.pragma.bootcamp.domain.exception.NegativeNotAllowedException;
@@ -61,6 +63,11 @@ public class ControllerAdvisor {
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECH_CAP_ALREADY_EXISTS_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
+    @ExceptionHandler(BootcampAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleBootcampAlreadyExistsException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.BOOTCAMP_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
     @ExceptionHandler(ElementNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleElementNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(
@@ -80,5 +87,10 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleTechCapNotFoundException() {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
                 Constants.TECH_CAP_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(BootcampNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleBootcampNotFoundException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.BOOTCAMP_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 }
