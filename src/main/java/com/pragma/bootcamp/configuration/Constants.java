@@ -18,5 +18,7 @@ public class Constants {
     public static final String TECHNOLOGY_NOT_FOUND_EXCEPTION_MESSAGE = "The technology indicated for this bootcamp does not exist";
     public static final String TECH_CAP_NOT_FOUND_EXCEPTION_MESSAGE = "The technology capacity indicated for this bootcamp does not exist";
     public static final String BOOTCAMP_NOT_FOUND_EXCEPTION_MESSAGE = "The bootcamp  does not exist";
+    public static final String FIELD_DESCRIPTION_MAX_CHARACTERS_MESSAGE = "Field 'description' must have at most 90 characters";
+    public static final String FIELD_NAME_MAX_CHARACTERS_MESSAGE = "Field 'name' must have at most 50 characters";
     public static final Long SOLD_OUT_VALUE = 0L;
 }

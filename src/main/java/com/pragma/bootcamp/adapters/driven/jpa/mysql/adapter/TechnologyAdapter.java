@@ -46,7 +46,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
 
     @Override
-    public List<Technology> getAllTechnologies(Integer page, Integer size) {
+    public List<Technology> getAllTechnologies(Integer page, Integer size, boolean ascendingOrder) {
         Pageable pagination = PageRequest.of(page, size);
         List<TechnologyEntity> technologies = technologyRepository.findAll(pagination).getContent();
         if (technologies.isEmpty()) {
@@ -56,7 +56,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
 
     @Override
-    public List<Technology> getAllTechnologiesByName(String name, Integer page, Integer size) {
+    public List<Technology> getAllTechnologiesByName(String name, Integer page, Integer size, boolean ascendingOrder) {
         Pageable pagination = PageRequest.of(page, size);
         Page<TechnologyEntity> pageResult = technologyRepository.findByNameContaining(name, pagination);
         List<TechnologyEntity> content = pageResult.getContent();

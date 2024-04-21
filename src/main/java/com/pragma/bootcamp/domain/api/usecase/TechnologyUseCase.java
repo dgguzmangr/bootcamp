@@ -24,14 +24,15 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public List<Technology> getAllTechnologies(Integer page, Integer size) {
-        return technologyPersistencePort.getAllTechnologies(page, size);
+    public List<Technology> getAllTechnologies(Integer page, Integer size, boolean ascendingOrder) {
+        return technologyPersistencePort.getAllTechnologies(page, size, ascendingOrder);
     }
 
     @Override
-    public List<Technology> getAllTechnologiesByName(String name, Integer page, Integer size) {
-        return technologyPersistencePort.getAllTechnologiesByName(name, page, size);
+    public List<Technology> getAllTechnologiesByName(String name, Integer page, Integer size, boolean ascendingOrder) {
+        return technologyPersistencePort.getAllTechnologiesByName(name, page, size, ascendingOrder);
     }
+
 
     @Override
     public Technology updateTechnology(Technology technology) {

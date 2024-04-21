@@ -43,9 +43,9 @@ public class TechnologyRestControllerAdapter {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<TechnologyResponse>> getAllTechnologies(@RequestParam Integer page, @RequestParam Integer size) {
+    public ResponseEntity<List<TechnologyResponse>> getAllTechnologies(@RequestParam Integer page, @RequestParam Integer size, @RequestParam boolean ascendingOrder) {
         return ResponseEntity.ok(technologyResponseMapper.
-                toTechnologyResponseList(technologyServicePort.getAllTechnologies(page, size)));
+                toTechnologyResponseList(technologyServicePort.getAllTechnologies(page, size, ascendingOrder)));
         //En postman http://localhost:8090/api/technology/?page=0&size=10
     }
 

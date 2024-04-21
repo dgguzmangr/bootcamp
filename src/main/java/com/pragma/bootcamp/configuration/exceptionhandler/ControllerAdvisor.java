@@ -13,6 +13,8 @@ import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.TechCapNotFoundEx
 import com.pragma.bootcamp.adapters.driven.jpa.mysql.exception.BootcampNotFoundException;
 import com.pragma.bootcamp.configuration.Constants;
 import com.pragma.bootcamp.domain.exception.EmptyFieldException;
+import com.pragma.bootcamp.domain.exception.MaxDescCharactersException;
+import com.pragma.bootcamp.domain.exception.MaxNameCharactersException;
 import com.pragma.bootcamp.domain.exception.NegativeNotAllowedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -92,5 +94,15 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleBootcampNotFoundException() {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
                 Constants.BOOTCAMP_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(MaxDescCharactersException.class)
+    public ResponseEntity<ExceptionResponse> handleMaxDescCharactersException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.FIELD_DESCRIPTION_MAX_CHARACTERS_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(MaxNameCharactersException.class)
+    public ResponseEntity<ExceptionResponse> handleMaxNameCharactersException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.FIELD_NAME_MAX_CHARACTERS_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 }
